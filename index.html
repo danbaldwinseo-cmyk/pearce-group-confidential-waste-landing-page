@@ -77,6 +77,7 @@
     z-index: 0;
   }
   [data-card] { box-shadow: 0 14px 30px -18px rgba(11, 46, 96, 0.22), 0 2px 6px rgba(11, 46, 96, 0.05); }
+  [data-r="faq"] > details > [data-faq-a] { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.26s ease-out, opacity 0.22s ease-out; }
   [data-cta], [data-cta-ghost], [data-cta-navy] { position: relative; border: 2px solid transparent; transition: transform 0.16s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease; will-change: transform, box-shadow; }
   [data-cta] { border-color: #8BE066; animation: om-cta-glow 2.8s ease-in-out infinite; }
   [data-cta]:hover { background: #5FBF37 !important; border-color: #8BE066; animation: om-cta-glow 1.4s ease-in-out infinite; }
@@ -124,6 +125,7 @@
     [data-cta].om-pressed, [data-cta-navy].om-pressed, [data-cta-ghost].om-pressed,
     [data-cta]:active, [data-cta-navy]:active, [data-cta-ghost]:active { animation: none !important; }
     [data-cta]:hover, [data-cta-ghost]:hover, [data-cta-navy]:hover, [data-cta]:active, [data-cta-ghost]:active { transform: none !important; }
+    [data-r="faq"] > details > [data-faq-a] { transition: none !important; max-height: none !important; opacity: 1 !important; }
   }
 </style>
 </head>
@@ -522,7 +524,14 @@
     <div style="max-width: 1160px; margin: 0 auto; padding: 88px 24px;" data-r="pad">
       <div data-card="1" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; border: 1px solid #E5E7EB; border-radius: 14px; padding: 24px 30px;" data-r="reviews-bar">
         <div style="display: flex; align-items: center; gap: 18px;">
-          <span style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -1.5px; color: #0B2E60;">4.9</span>
+          <svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true" style="flex: none;">
+            <path d="M20,5 A15,15 0 0,1 35,20" fill="none" stroke="#4285F4" stroke-width="5"></path>
+            <path d="M35,20 A15,15 0 0,1 20,35" fill="none" stroke="#EA4335" stroke-width="5"></path>
+            <path d="M20,35 A15,15 0 0,1 5,20" fill="none" stroke="#FBBC05" stroke-width="5"></path>
+            <path d="M5,20 A15,15 0 0,1 20,5" fill="none" stroke="#34A853" stroke-width="5"></path>
+            <text x="20" y="21" text-anchor="middle" dominant-baseline="central" font-family="Montserrat, sans-serif" font-weight="700" font-size="15" fill="#4A5563">G</text>
+          </svg>
+          <span data-review-rating="1" style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -1.5px; color: #0B2E60;">4.9</span>
           <div>
             <div style="display: flex; gap: 3px;">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
@@ -531,12 +540,12 @@
               <svg width="17" height="17" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
               <svg width="17" height="17" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
             </div>
-            <p style="font-size: 14px; margin: 7px 0 0;">Rated <strong style="color: #0B2E60;">4.9 out of 5</strong> across <strong style="color: #0B2E60;">128</strong> Google reviews</p>
+            <p style="font-size: 14px; margin: 7px 0 0;">Rated <strong data-review-rating-text="1" style="color: #0B2E60;">4.9 out of 5</strong> across <strong data-review-total="1" style="color: #0B2E60;">128</strong> Google reviews</p>
           </div>
         </div>
         <span style="font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #7C8CA3;">Live figures pulled from Google Business Profile</span>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 20px; margin-top: 20px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 20px; margin-top: 20px;" data-review-grid="1">
         <div data-card="1" style="border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
           <div style="display: flex; gap: 3px; margin-bottom: 14px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
@@ -546,8 +555,13 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
           </div>
           <p style="font-size: 15px; line-height: 1.6; margin: 0; color: #3A4552;">Review text pulled live from the Google Business Profile. Design allows for roughly three lines before truncation, so longer reviews stay tidy in the grid.</p>
-          <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 18px 0 0;">Reviewer name</p>
-          <p style="font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;">Review date</p>
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px;">
+            <span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(145deg, #14417F 0%, #0B2E60 100%); box-shadow: 0 3px 8px rgba(11,46,96,0.28); flex: none; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 15px; color: #ffffff;">R</span>
+            <div>
+              <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 0;">Reviewer name</p>
+              <p style="font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;">Review date</p>
+            </div>
+          </div>
         </div>
         <div data-card="1" style="border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
           <div style="display: flex; gap: 3px; margin-bottom: 14px;">
@@ -558,8 +572,13 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
           </div>
           <p style="font-size: 15px; line-height: 1.6; margin: 0; color: #3A4552;">Second review slot. Claude Code will wire the Google Business Profile pull, ordering by most recent and filtering to four stars and above.</p>
-          <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 18px 0 0;">Reviewer name</p>
-          <p style="font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;">Review date</p>
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px;">
+            <span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(145deg, #14417F 0%, #0B2E60 100%); box-shadow: 0 3px 8px rgba(11,46,96,0.28); flex: none; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 15px; color: #ffffff;">R</span>
+            <div>
+              <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 0;">Reviewer name</p>
+              <p style="font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;">Review date</p>
+            </div>
+          </div>
         </div>
         <div data-card="1" style="border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
           <div style="display: flex; gap: 3px; margin-bottom: 14px;">
@@ -570,8 +589,13 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#F1B434"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
           </div>
           <p style="font-size: 15px; line-height: 1.6; margin: 0; color: #3A4552;">Third review slot. If fewer than three qualifying reviews are returned, the grid should collapse to the number available rather than show an empty card.</p>
-          <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 18px 0 0;">Reviewer name</p>
-          <p style="font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;">Review date</p>
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px;">
+            <span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(145deg, #14417F 0%, #0B2E60 100%); box-shadow: 0 3px 8px rgba(11,46,96,0.28); flex: none; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 15px; color: #ffffff;">R</span>
+            <div>
+              <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 0;">Reviewer name</p>
+              <p style="font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;">Review date</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -581,48 +605,48 @@
     <div style="max-width: 860px; margin: 0 auto; padding: 88px 24px;" data-r="pad">
       <p style="font-family: Montserrat, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: #4E9A2F; margin: 0; text-align: center;" data-faq-kicker="1">FAQ</p>
       <h2 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(26px, 4.4vw, 36px); line-height: 1.14; letter-spacing: -0.9px; color: #0B2E60; margin: 14px 0 40px; text-align: center;">Confidential waste questions</h2>
-      <div style="display: grid; gap: 12px;">
+      <div style="display: grid; gap: 12px;" data-r="faq">
         <details data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 24px;">
           <summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16.5px; color: #0B2E60;">
             Is Pearce accredited for the destruction of confidential waste?
             <span data-chev="1" style="flex: none; display: inline-flex; transition: transform 0.2s ease;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E9A2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
           </summary>
-          <p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Yes. We destroy to EN 15713, the European standard for the secure destruction of confidential material, and operate under ISO 9001 and ISO 14001. Certificates are supplied with your quote so procurement can file them up front.</p>
+          <div data-faq-a="1"><p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Yes. We destroy to EN 15713, the European standard for the secure destruction of confidential material, and operate under ISO 9001 and ISO 14001. Certificates are supplied with your quote so procurement can file them up front.</p></div>
         </details>
         <details data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 24px;">
           <summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16.5px; color: #0B2E60;">
             How long before my material is destroyed after collection?
             <span data-chev="1" style="flex: none; display: inline-flex; transition: transform 0.2s ease;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E9A2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
           </summary>
-          <p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Typically within 24 hours of arriving at our facility. Material is held in a CCTV-monitored secure area until it is shredded, never in an open yard.</p>
+          <div data-faq-a="1"><p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Typically within 24 hours of arriving at our facility. Material is held in a CCTV-monitored secure area until it is shredded, never in an open yard.</p></div>
         </details>
         <details data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 24px;">
           <summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16.5px; color: #0B2E60;">
             Are any of your confidential services outsourced?
             <span data-chev="1" style="flex: none; display: inline-flex; transition: transform 0.2s ease;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E9A2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
           </summary>
-          <p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">No. Containment, collection, shredding and documentation are all delivered by Pearce staff using Pearce vehicles and our own plant. Nothing in the chain is brokered to a third party.</p>
+          <div data-faq-a="1"><p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">No. Containment, collection, shredding and documentation are all delivered by Pearce staff using Pearce vehicles and our own plant. Nothing in the chain is brokered to a third party.</p></div>
         </details>
         <details data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 24px;">
           <summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16.5px; color: #0B2E60;">
             What paperwork will I receive?
             <span data-chev="1" style="flex: none; display: inline-flex; transition: transform 0.2s ease;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E9A2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
           </summary>
-          <p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">A Waste Transfer Note, issued and countersigned at the point of collection, and a certificate of destruction issued with your invoice. Together they close both your Duty of Care and data protection audit trail.</p>
+          <div data-faq-a="1"><p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">A Waste Transfer Note, issued and countersigned at the point of collection, and a certificate of destruction issued with your invoice. Together they close both your Duty of Care and data protection audit trail.</p></div>
         </details>
         <details data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 24px;">
           <summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16.5px; color: #0B2E60;">
             Can you handle annual archive clearances?
             <span data-chev="1" style="flex: none; display: inline-flex; transition: transform 0.2s ease;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E9A2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
           </summary>
-          <p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Yes. Retention cut-offs, office moves and records-store clearances are quoted as ad hoc collections with no ongoing contract. We deliver sacks or bins in advance and collect on an agreed date.</p>
+          <div data-faq-a="1"><p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Yes. Retention cut-offs, office moves and records-store clearances are quoted as ad hoc collections with no ongoing contract. We deliver sacks or bins in advance and collect on an agreed date.</p></div>
         </details>
         <details data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px 24px;">
           <summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16.5px; color: #0B2E60;">
             What happens to the material after it is destroyed?
             <span data-chev="1" style="flex: none; display: inline-flex; transition: transform 0.2s ease;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E9A2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
           </summary>
-          <p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Shredded paper is intermixed and shipped directly to a UK paper mill, where it is recycled into hygiene products. Tonnage is reported back to you for your environmental reporting.</p>
+          <div data-faq-a="1"><p style="font-size: 15.5px; line-height: 1.65; margin: 14px 0 0;">Shredded paper is intermixed and shipped directly to a UK paper mill, where it is recycled into hygiene products. Tonnage is reported back to you for your environmental reporting.</p></div>
         </details>
       </div>
     </div>
@@ -664,6 +688,177 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
   initCompactHeader();
+
+  // FAQ accordion: intercepts the native <summary> toggle so the answer's
+  // height/opacity can be animated instead of snapping open/closed. The
+  // `open` attribute is still what drives everything (chevron rotation,
+  // native semantics) — we just set it immediately on open and defer
+  // removing it on close until the collapse animation has finished, so
+  // the answer stays visible for the full closing transition.
+  function initFaqAccordions() {
+    var items = document.querySelectorAll('[data-r="faq"] > details');
+    if (!items.length) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    items.forEach(function (details) {
+      var summary = details.querySelector('summary');
+      var answer = details.querySelector('[data-faq-a]');
+      if (!summary || !answer) return;
+
+      var animating = false;
+
+      var openFaq = function () {
+        details.open = true;
+        answer.style.transition = 'none';
+        answer.style.maxHeight = '0px';
+        answer.style.opacity = '0';
+        answer.offsetHeight; // force reflow so the reset above takes effect
+        answer.style.transition = '';
+        var target = answer.scrollHeight;
+        requestAnimationFrame(function () {
+          answer.style.maxHeight = target + 'px';
+          answer.style.opacity = '1';
+        });
+        var onEnd = function (e) {
+          if (e.target !== answer || e.propertyName !== 'max-height') return;
+          answer.removeEventListener('transitionend', onEnd);
+          answer.style.maxHeight = 'none';
+          animating = false;
+        };
+        answer.addEventListener('transitionend', onEnd);
+      };
+
+      var closeFaq = function () {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.offsetHeight; // force reflow before dropping to 0
+        requestAnimationFrame(function () {
+          answer.style.maxHeight = '0px';
+          answer.style.opacity = '0';
+        });
+        var onEnd = function (e) {
+          if (e.target !== answer || e.propertyName !== 'max-height') return;
+          answer.removeEventListener('transitionend', onEnd);
+          details.open = false;
+          animating = false;
+        };
+        answer.addEventListener('transitionend', onEnd);
+      };
+
+      summary.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (reduceMotion) { details.open = !details.open; return; }
+        if (animating) return;
+        animating = true;
+        if (details.open) { closeFaq(); } else { openFaq(); }
+      });
+    });
+  }
+  initFaqAccordions();
+
+  // Google reviews: pulls live rating/review data from a same-origin REST
+  // endpoint and swaps it into the summary bar + review cards. Network
+  // failures, ok:false, or an empty reviews array all silently no-op,
+  // leaving the hardcoded placeholder markup already in the DOM as the
+  // fallback state.
+  function initGoogleReviews() {
+    try {
+      var ratingEl = document.querySelector('[data-review-rating]');
+      var ratingTextEl = document.querySelector('[data-review-rating-text]');
+      var totalEl = document.querySelector('[data-review-total]');
+      var gridEl = document.querySelector('[data-review-grid]');
+      if (!ratingEl || !ratingTextEl || !totalEl || !gridEl) return;
+
+      var STAR_PATH = 'm12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z';
+
+      var buildStars = function (rating) {
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'display: flex; gap: 3px; margin-bottom: 14px;';
+        var filled = Math.max(0, Math.min(5, Math.round(rating || 0)));
+        for (var i = 0; i < 5; i++) {
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('width', '15');
+          svg.setAttribute('height', '15');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('fill', i < filled ? '#F1B434' : '#E0E0E0');
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', STAR_PATH);
+          svg.appendChild(path);
+          wrap.appendChild(svg);
+        }
+        return wrap;
+      };
+
+      var buildCard = function (review) {
+        var card = document.createElement('div');
+        card.setAttribute('data-card', '1');
+        card.className = 'om-in'; // injected after the scroll-reveal observer runs, so render already-visible
+        card.style.cssText = 'border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;';
+        card.appendChild(buildStars(review.rating));
+
+        var textP = document.createElement('p');
+        textP.style.cssText = 'font-size: 15px; line-height: 1.6; margin: 0; color: #3A4552;';
+        textP.textContent = review.text || '';
+        card.appendChild(textP);
+
+        var authorRow = document.createElement('div');
+        authorRow.style.cssText = 'display: flex; align-items: center; gap: 10px; margin-top: 18px;';
+
+        var avatar = document.createElement('span');
+        avatar.style.cssText = 'display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(145deg, #14417F 0%, #0B2E60 100%); box-shadow: 0 3px 8px rgba(11,46,96,0.28); flex: none; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 15px; color: #ffffff;';
+        var authorName = (review.author || '').trim();
+        avatar.textContent = authorName ? authorName.charAt(0).toUpperCase() : '?';
+        authorRow.appendChild(avatar);
+
+        var nameCol = document.createElement('div');
+
+        var nameP = document.createElement('p');
+        nameP.style.cssText = 'font-family: Montserrat, sans-serif; font-weight: 600; font-size: 13.5px; color: #0B2E60; margin: 0;';
+        nameP.textContent = review.author || '';
+        nameCol.appendChild(nameP);
+
+        var dateP = document.createElement('p');
+        dateP.style.cssText = 'font-size: 12.5px; color: #7C8CA3; margin: 3px 0 0;';
+        dateP.textContent = review.relative_time || '';
+        nameCol.appendChild(dateP);
+
+        authorRow.appendChild(nameCol);
+        card.appendChild(authorRow);
+
+        return card;
+      };
+
+      fetch('/wp-json/pearce/v1/reviews')
+        .then(function (res) {
+          if (!res.ok) throw new Error('reviews request failed');
+          return res.json();
+        })
+        .then(function (data) {
+          if (!data || !data.ok || !Array.isArray(data.reviews) || !data.reviews.length) return;
+
+          var reviews = data.reviews;
+          var selected = reviews.length >= 4 ? reviews.slice(1, 4) : reviews.slice(0, 3);
+          if (!selected.length) return;
+
+          if (typeof data.rating === 'number') {
+            var ratingDisplay = Math.round(data.rating * 10) / 10;
+            ratingEl.textContent = String(ratingDisplay);
+            ratingTextEl.textContent = ratingDisplay + ' out of 5';
+          }
+          if (typeof data.total === 'number') {
+            totalEl.textContent = String(data.total);
+          }
+
+          gridEl.innerHTML = '';
+          selected.forEach(function (review) {
+            gridEl.appendChild(buildCard(review));
+          });
+        })
+        .catch(function () { /* silent fallback: keep the existing hardcoded markup */ });
+    } catch (err) {
+      // silent fallback: keep the existing hardcoded markup
+    }
+  }
+  initGoogleReviews();
 
   function setup() {
     var root = document.querySelector('[data-page="cw"]');
