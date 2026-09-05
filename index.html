@@ -24,7 +24,7 @@
   header img { transition: height 0.25s ease; }
   header a[href^="tel:"] { transition: font-size 0.25s ease; }
   header a[href^="tel:"] svg { transition: width 0.25s ease, height 0.25s ease; }
-  header [data-cta] { transition: padding 0.25s ease, font-size 0.25s ease; }
+  header [data-cta] { transition: transform 0.16s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease, padding 0.25s ease, font-size 0.25s ease; }
   header.hdr-compact [data-r="hdr"] { padding-top: 13px !important; padding-bottom: 13px !important; }
   header.hdr-compact img { height: 66px !important; }
   header.hdr-compact a[href^="tel:"] { font-size: 16px !important; }
@@ -74,17 +74,17 @@
     50% { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 18px rgba(255, 255, 255, 0.18); }
   }
   @keyframes om-cta-press {
-    0% { transform: scale(0.955); background: #6FD341; box-shadow: 0 0 0 8px rgba(95, 191, 55, 0.34), 0 0 30px rgba(120, 220, 70, 0.8); }
+    0% { transform: translateY(-1px) scale(1.025); background: #6FD341; box-shadow: 0 0 0 8px rgba(95, 191, 55, 0.34), 0 0 30px rgba(120, 220, 70, 0.8); }
     35% { transform: scale(0.962); box-shadow: 0 0 0 5px rgba(95, 191, 55, 0.24), 0 0 18px rgba(95, 191, 55, 0.45); }
     100% { transform: scale(0.972); box-shadow: 0 1px 3px rgba(78, 154, 47, 0.3); }
   }
   @keyframes om-cta-press-navy {
-    0% { transform: scale(0.955); background: #1B4E96; box-shadow: 0 0 0 8px rgba(56, 130, 255, 0.3), 0 0 30px rgba(56, 130, 255, 0.7); }
+    0% { transform: translateY(-1px) scale(1.025); background: #1B4E96; box-shadow: 0 0 0 8px rgba(56, 130, 255, 0.3), 0 0 30px rgba(56, 130, 255, 0.7); }
     35% { transform: scale(0.962); box-shadow: 0 0 0 5px rgba(56, 130, 255, 0.2), 0 0 18px rgba(56, 130, 255, 0.4); }
     100% { transform: scale(0.972); box-shadow: 0 1px 3px rgba(11, 46, 96, 0.32); }
   }
   @keyframes om-cta-press-ghost {
-    0% { transform: scale(0.955); box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.2), 0 0 26px rgba(255, 255, 255, 0.55); }
+    0% { transform: translateY(-1px) scale(1.025); box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.2), 0 0 26px rgba(255, 255, 255, 0.55); }
     35% { transform: scale(0.962); box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14); }
     100% { transform: scale(0.972); box-shadow: none; }
   }
