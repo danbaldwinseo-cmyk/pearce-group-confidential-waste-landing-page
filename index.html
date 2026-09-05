@@ -11,11 +11,25 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600&display=swap">
 <style>
   body { margin: 0; background: #ffffff; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { text-transform: none !important; }
   a { color: #0B2E60; text-decoration: none; }
   a:hover { color: #4E9A2F; }
   summary::-webkit-details-marker { display: none; }
   summary { list-style: none; cursor: pointer; }
   details[open] > summary > span[data-chev] { transform: rotate(180deg); }
+  .rmp_menu_trigger, .rmp-container { display: none !important; }
+
+  /* Shrinking sticky header — base transitions (compact overrides below toggle via .hdr-compact) */
+  header [data-r="hdr"] { transition: padding 0.25s ease; }
+  header img { transition: height 0.25s ease; }
+  header a[href^="tel:"] { transition: font-size 0.25s ease; }
+  header a[href^="tel:"] svg { transition: width 0.25s ease, height 0.25s ease; }
+  header [data-cta] { transition: padding 0.25s ease, font-size 0.25s ease; }
+  header.hdr-compact [data-r="hdr"] { padding-top: 13px !important; padding-bottom: 13px !important; }
+  header.hdr-compact img { height: 66px !important; }
+  header.hdr-compact a[href^="tel:"] { font-size: 14px !important; }
+  header.hdr-compact a[href^="tel:"] svg { width: 14px !important; height: 14px !important; }
+  header.hdr-compact [data-cta] { padding: 9px 17px !important; font-size: 10px !important; }
   @media (max-width: 900px) {
     [data-r="split"] { grid-template-columns: 1fr !important; gap: 36px !important; }
     [data-r="chain"] { grid-template-columns: repeat(2, 1fr) !important; }
@@ -90,11 +104,11 @@
 <div data-page="cw" style="font-family: 'Nunito Sans', Avenir, 'Segoe UI', sans-serif; color: #4A5563; background: #ffffff; overflow-x: hidden;">
 
   <header style="position: sticky; top: 0; z-index: 40; background: #ffffff; border-bottom: 1px solid #E5E7EB;">
-    <div style="max-width: 1160px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px;" data-r="hdr">
-      <img src="images/pearce-group-logo.webp" alt="Pearce Group" style="height: 46px; width: auto; display: block;">
+    <div style="max-width: 1160px; margin: 0 auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px;" data-r="hdr">
+      <img src="/wp-content/uploads/2026/09/pearce-group-logo.webp" alt="Pearce Group" style="height: 92px; width: auto; display: block;">
       <div data-r="hdr-actions" style="display: flex; align-items: center; gap: 28px;">
-        <a href="tel:08000833333" style="display: flex; align-items: center; gap: 9px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 16px; color: #0B2E60; letter-spacing: -0.2px;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2.1z"></path></svg>
+        <a href="tel:08000833333" style="display: flex; align-items: center; gap: 9px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 20px; color: #0B2E60; letter-spacing: -0.2px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2.1z"></path></svg>
           0800 083 33 33
         </a>
         <a href="#enquiry" data-cta="1" style="display: inline-block; background: #4E9A2F; color: #ffffff; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.3px; padding: 13px 24px; border-radius: 999px;" style-hover="background: #3F7F26;">Speak to an expert</a>
@@ -600,7 +614,7 @@
 
   <footer style="background: #071D3F;">
     <div style="max-width: 1160px; margin: 0 auto; padding: 34px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;">
-      <img src="images/pearce-group-logo.webp" alt="Pearce Group" style="height: 38px; width: auto; display: block; filter: brightness(0) invert(1);">
+      <img src="/wp-content/uploads/2026/09/pearce-group-logo.webp" alt="Pearce Group" style="height: 76px; width: auto; display: block; filter: brightness(0) invert(1);">
       <p style="font-size: 13px; color: rgba(255,255,255,0.6); margin: 0;">Pearce Group (Head Office), Pearce House, Acrewood Way, St Albans, Hertfordshire, AL4 0JY</p>
       <p style="font-size: 13px; color: rgba(255,255,255,0.45); margin: 0;">© Pearce Group</p>
     </div>
@@ -610,6 +624,20 @@
 
 <script>
 (function () {
+  // Shrinking sticky header: toggles .hdr-compact once scrolled past COMPACT_AT,
+  // removes it again on scroll back up. Sizing itself lives entirely in CSS.
+  function initCompactHeader() {
+    var header = document.querySelector('header');
+    if (!header) return;
+    var COMPACT_AT = 70;
+    var onScroll = function () {
+      header.classList.toggle('hdr-compact', window.scrollY > COMPACT_AT);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  initCompactHeader();
+
   function setup() {
     var root = document.querySelector('[data-page="cw"]');
     if (!root) { setTimeout(setup, 120); return; }
