@@ -33,6 +33,7 @@
   @media (max-width: 900px) {
     [data-r="split"] { grid-template-columns: 1fr !important; gap: 36px !important; }
     [data-r="chain"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [data-r="included"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-r="trust"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-r="trust"] > div { border-left: none !important; justify-content: flex-start !important; }
     [data-r="trust"] > div:last-child { grid-column: 1 / -1 !important; justify-content: center !important; max-width: 260px; margin: 0 auto; }
@@ -49,6 +50,7 @@
     header [data-cta] { flex-basis: 100% !important; text-align: center !important; font-size: 17px !important; padding: 14px 22px !important; }
     header.hdr-compact [data-cta] { font-size: 15px !important; padding: 11px 20px !important; }
     [data-r="chain"] { grid-template-columns: 1fr !important; }
+    [data-r="included"] { grid-template-columns: 1fr !important; }
     [data-r="cmp-head"] { display: none !important; }
     [data-r="cmp"] { grid-template-columns: 1fr 1fr !important; }
     [data-r="cmp-q"] { grid-column: 1 / -1 !important; padding-bottom: 4px !important; }
@@ -199,35 +201,35 @@
         <h2 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(27px, 4.6vw, 38px); line-height: 1.14; letter-spacing: -0.9px; color: #0B2E60; margin: 14px 0 0;">One managed service, from the desk to the paper mill</h2>
         <p style="font-size: 17px; line-height: 1.6; margin: 18px 0 0; text-wrap: pretty;">Every element is delivered by Pearce staff, on Pearce vehicles, to Pearce facilities. There is no third party in the chain and no gap in the paperwork.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 48px;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px;" data-r="included">
         <div data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path><path d="M10 13h4"></path></svg>
-          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 18px 0 8px;">Secure containment on site</h3>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path><path d="M10 13h4"></path></svg>
+          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 8px 0 8px;">Secure containment on site</h3>
           <p style="font-size: 15px; line-height: 1.6; margin: 0;">Lockable consoles, cabinets and sealed confidential sacks, sized and sited to suit your floorplan and volume.</p>
         </div>
         <div data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"></path><path d="M15 17h2l4-5h-6v5z"></path><circle cx="7.5" cy="17.5" r="2"></circle><circle cx="17.5" cy="17.5" r="2"></circle></svg>
-          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 18px 0 8px;">Scheduled or ad hoc collection</h3>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"></path><path d="M15 17h2l4-5h-6v5z"></path><circle cx="7.5" cy="17.5" r="2"></circle><circle cx="17.5" cy="17.5" r="2"></circle></svg>
+          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 8px 0 8px;">Scheduled or ad hoc collection</h3>
           <p style="font-size: 15px; line-height: 1.6; margin: 0;">Uniformed, ID-badged and DBS-checked drivers on tracked vehicles. Fixed rates whether you need one clearance or a weekly round.</p>
         </div>
         <div data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8.5 4 3 3 4l5.5 5.5"></path><path d="m14.5 8.5 5.5-5.5 1 1-5.5 5.5"></path><circle cx="12" cy="15" r="6"></circle></svg>
-          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 18px 0 8px;">Intermixed shredding to EN 15713</h3>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8.5 4 3 3 4l5.5 5.5"></path><path d="m14.5 8.5 5.5-5.5 1 1-5.5 5.5"></path><circle cx="12" cy="15" r="6"></circle></svg>
+          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 8px 0 8px;">Intermixed shredding to EN 15713</h3>
           <p style="font-size: 15px; line-height: 1.6; margin: 0;">Material is shredded at our own CCTV-monitored facility, typically within 24 hours of collection, and intermixed for added security.</p>
         </div>
         <div data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg>
-          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 18px 0 8px;">Certificate of destruction</h3>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg>
+          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 8px 0 8px;">Certificate of destruction</h3>
           <p style="font-size: 15px; line-height: 1.6; margin: 0;">Issued with your invoice for your compliance records, alongside a Waste Transfer Note countersigned at the point of collection.</p>
         </div>
         <div data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 15 4-5 3 3 5-7"></path></svg>
-          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 18px 0 8px;">Reporting you can hand to auditors</h3>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m7 15 4-5 3 3 5-7"></path></svg>
+          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 8px 0 8px;">Reporting you can hand to auditors</h3>
           <p style="font-size: 15px; line-height: 1.6; margin: 0;">Tonnage, destruction dates and duty-of-care documentation kept in one place, with a named account manager to pull it for you.</p>
         </div>
         <div data-card="1" style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 14px; padding: 28px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"></path><path d="M2 21c0-3 1.9-6 5-7"></path></svg>
-          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 18px 0 8px;">Recycled into hygiene products</h3>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0B2E60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"></path><path d="M2 21c0-3 1.9-6 5-7"></path></svg>
+          <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #0B2E60; margin: 8px 0 8px;">Recycled into hygiene products</h3>
           <p style="font-size: 15px; line-height: 1.6; margin: 0;">Shredded paper is shipped directly to a UK paper mill, so secure destruction and your ISO 14001 targets pull in the same direction.</p>
         </div>
       </div>
@@ -241,9 +243,9 @@
           <p style="font-family: Montserrat, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: #4E9A2F; margin: 0;">Chain of custody</p>
           <h2 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(26px, 4.4vw, 36px); line-height: 1.14; letter-spacing: -0.9px; color: #0B2E60; margin: 14px 0 0;">The destruction process, step by step</h2>
           <p style="font-size: 17px; line-height: 1.6; margin: 18px 0 0; text-wrap: pretty;">Nine controlled stages between a document leaving a desk and a certificate landing in your records. Every one of them is ours.</p>
-          <a href="#enquiry" data-cta-navy="1" style="display: inline-block; margin-top: 26px; background: #0B2E60; color: #ffffff; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.3px; padding: 14px 26px; border-radius: 999px;" style-hover="background: #08214A;">Talk through your process</a>
+          <a href="#enquiry" data-cta="1" style="display: inline-block; margin-top: 26px; background: #4E9A2F; color: #ffffff; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 18px; letter-spacing: 0.3px; padding: 15px 28px; border-radius: 999px;" style-hover="background: #3F7F26;">Talk through your process</a>
         </div>
-        <div data-r="chain" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #E1E6ED; border: 1px solid #E1E6ED; border-radius: 14px; overflow: hidden;">
+        <div data-r="chain" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #F5F7FA; border: 1px solid #E1E6ED; border-radius: 14px; overflow: hidden;">
           <div data-reveal="1" style="background: #ffffff; padding: 22px 20px;">
             <span style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 1px; color: #4E9A2F;">01</span>
             <p style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 14.5px; color: #0B2E60; margin: 10px 0 6px; line-height: 1.3;">Treat all paper as confidential</p>
