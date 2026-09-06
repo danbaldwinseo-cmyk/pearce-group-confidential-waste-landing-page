@@ -65,7 +65,7 @@
        #enquiry-form's (the div wrapping the iframe) scroll-margin-top is
        bumped to clear it (plus a buffer, erring toward a little extra
        gap over any risk of clipping). */
-    #enquiry-form { scroll-margin-top: 170px !important; }
+    #enquiry-form, #enquiry { scroll-margin-top: 170px !important; }
     [data-r="chain"] { grid-template-columns: 1fr !important; }
     [data-r="included"] { grid-template-columns: 1fr !important; }
     [data-r="cmp-head"] { display: none !important; }
@@ -76,20 +76,25 @@
   }
   @media (max-width: 480px) {
     /* Enquiry card: the form panel is a same-origin iframe embedding a
-       live, non-responsive WordPress form. Its fixed-width fields can
-       clip at the very narrowest phone widths, so extra iframe width
-       is recovered here by tightening the card's own horizontal
-       padding specifically (vertical padding is left alone - width is
-       the scarce dimension on a phone, not height). The outer section
-       padding (24px, set elsewhere) still keeps the card itself off
-       the screen edges. The trust-block dividers and the 150-years
-       badge are also tightened slightly, since this column now
-       carries more content (checklist, phone callout, compliance
-       badges, badge) than when the wider mobile spacing was first set.
-       scroll-margin-top for #enquiry-form is set in the 720px block
-       above (this range is a subset of it) and again below for ≤380px,
-       where the header is measurably shorter. */
-    #enquiry [data-r="split"] { padding: 16px 10px !important; }
+       live, non-responsive WordPress form, whose own .gform_wrapper
+       padding (28px, set on that separate WordPress page/CSS, not
+       here) stacks with this card's own padding before reaching an
+       actual input field. Tightened further here (was 16px 10px) -
+       vertical padding still left alone, width is the scarce dimension
+       on a phone. The .gform_wrapper padding itself likely also needs
+       a mobile-specific reduction to fully resolve the cramped feel;
+       that lives in a different file/snippet and can't be changed
+       from here. The outer section padding (24px, set elsewhere)
+       still keeps the card itself off the screen edges. The
+       trust-block dividers and the 150-years badge are also tightened
+       slightly, since this column now carries more content (checklist,
+       phone callout, compliance badges, badge) than when the wider
+       mobile spacing was first set. scroll-margin-top for #enquiry-form
+       and #enquiry (used as the mobile CTA scroll target instead, see
+       the click handler JS) is set in the 720px block above (this
+       range is a subset of it) and again below for ≤380px, where the
+       header is measurably shorter. */
+    #enquiry [data-r="split"] { padding: 12px 8px !important; }
     #enquiry [data-r="enq-divider"] { margin-top: 22px !important; padding-top: 18px !important; }
     #enquiry [data-r="enq-badge"] { margin-top: 16px !important; }
   }
@@ -100,7 +105,7 @@
        header a little shorter than the 390-720px range (measured up to
        140px vs 148px) - #enquiry-form gets its own, slightly smaller
        scroll-margin-top here. */
-    #enquiry-form { scroll-margin-top: 160px !important; }
+    #enquiry-form, #enquiry { scroll-margin-top: 160px !important; }
   }
   [data-reveal], [data-card] { opacity: 0; transform: translateY(18px); transition: opacity 0.65s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1); }
   [data-reveal].om-in, [data-card].om-in { opacity: 1; transform: translateY(0); }
@@ -495,7 +500,7 @@
     </div>
   </section>
 
-  <section id="enquiry" style="background: #ffffff; scroll-margin-top: 90px;">
+  <section id="enquiry" style="background: #ffffff; scroll-margin-top: 150px;">
     <div style="max-width: 1160px; margin: 0 auto; padding: 88px 24px;" data-r="pad">
       <div style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; border: 1px solid #E5E7EB; border-radius: 18px; padding: clamp(24px, 4vw, 48px); box-shadow: 0 14px 30px -18px rgba(11, 46, 96, 0.22), 0 2px 6px rgba(11, 46, 96, 0.05);" data-r="split">
         <div>
@@ -1038,7 +1043,14 @@
       var href = btn.getAttribute('href') || '';
       if (href.charAt(0) !== '#') return;
       btn.addEventListener('click', function (e) {
-        var target = document.querySelector(href);
+        // Below 900px the two enquiry columns stack (the form panel
+        // sits below the heading/intro/checklist rather than beside
+        // it), so jumping straight to #enquiry-form skips a mobile
+        // visitor past all of that context straight to a bare form.
+        // Above 900px both columns are already visible side by side,
+        // so going straight to the form panel is still correct there.
+        var actualHref = (href === '#enquiry-form' && window.innerWidth < 900) ? '#enquiry' : href;
+        var target = document.querySelector(actualHref);
         if (!target) return;
         e.preventDefault();
         // Elementor's own built-in anchor-scroll (jQuery, delegated,
@@ -1052,12 +1064,14 @@
         setTimeout(function () {
           // scroll-margin-top is read here (via getComputedStyle) and
           // applied manually as the offset, keeping the CSS values as
-          // the single source of truth per breakpoint. behavior:'instant'
-          // (not 'smooth') - direct testing confirmed this lands exactly
-          // on the calculated destination with zero drift, first attempt.
+          // the single source of truth per breakpoint. behavior:'smooth'
+          // is safe now that stopImmediatePropagation above stops
+          // Elementor's competing scroll animation from ever firing -
+          // that was the actual cause of the earlier drift, not smooth
+          // scrolling itself.
           var scrollMarginTop = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
           var top = target.getBoundingClientRect().top + window.pageYOffset - scrollMarginTop;
-          window.scrollTo({ top: top, behavior: 'instant' });
+          window.scrollTo({ top: top, behavior: 'smooth' });
           btn.classList.remove('om-pressed');
         }, HOLD);
       });
