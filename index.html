@@ -83,22 +83,27 @@
     /* Enquiry card: the form panel is a same-origin iframe embedding a
        live, non-responsive WordPress form, whose own .gform_wrapper
        padding (28px, set on that separate WordPress page/CSS, not
-       here) stacks with this card's own padding before reaching an
-       actual input field. Tightened further here (was 16px 10px) -
-       vertical padding still left alone, width is the scarce dimension
-       on a phone. The .gform_wrapper padding itself likely also needs
-       a mobile-specific reduction to fully resolve the cramped feel;
-       that lives in a different file/snippet and can't be changed
-       from here. The outer section padding (24px, set elsewhere)
-       still keeps the card itself off the screen edges. The
-       trust-block dividers and the 150-years badge are also tightened
-       slightly, since this column now carries more content (checklist,
-       phone callout, compliance badges, badge) than when the wider
-       mobile spacing was first set. scroll-margin-top for #enquiry-form,
+       here) stacks with this card's own padding AND the outer section's
+       own [data-r="pad"] padding before reaching an actual input field.
+       All three layers together were eating ~120px total (60px per
+       side) out of a 375px viewport before this rule - tightened here
+       (was 16px 10px on the card, and the outer pad was still the full
+       24px each side used everywhere else on the page). Vertical
+       padding on both layers is left alone, width is the scarce
+       dimension on a phone. Scoped to #enquiry specifically so other
+       sections keep their normal 24px side padding. The .gform_wrapper
+       padding itself likely also needs a mobile-specific reduction to
+       fully resolve the cramped feel; that lives in a different
+       file/snippet and can't be changed from here. The trust-block
+       dividers and the 150-years badge are also tightened slightly,
+       since this column now carries more content (checklist, phone
+       callout, compliance badges, badge) than when the wider mobile
+       spacing was first set. scroll-margin-top for #enquiry-form,
        #enquiry and #enquiry-form-intro (the last is the actual mobile CTA
        scroll target, see the click handler JS) is set in the 720px block
        above (this range is a subset of it) and again below for ≤380px,
        where the header is measurably shorter. */
+    #enquiry [data-r="pad"] { padding-left: 12px !important; padding-right: 12px !important; }
     #enquiry [data-r="split"] { padding: 12px 8px !important; }
     #enquiry [data-r="enq-divider"] { margin-top: 22px !important; padding-top: 18px !important; }
     #enquiry [data-r="enq-badge"] { margin-top: 16px !important; }
@@ -566,7 +571,7 @@
                the full left column already sits alongside the form. -->
           <div id="enquiry-form-intro" data-r="enq-form-intro" style="display: none; scroll-margin-top: 150px;">
             <p style="font-family: Montserrat, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: #4E9A2F; margin: 0;">Enquiry</p>
-            <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 18px; line-height: 1.3; letter-spacing: -0.3px; color: #0B2E60; margin: 8px 0 16px;">Get a fixed-rate quote — tell us the volume and sites, no minimum contract.</h3>
+            <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 18px; line-height: 1.3; letter-spacing: -0.3px; color: #0B2E60; margin: 8px 0 16px;">Get a fixed-rate quote - tell us the volume and sites, no minimum contract.</h3>
           </div>
           <!-- scroll-margin-top lives on this wrapping div, not the iframe,
                so the CTA scroll-anchor id (and the per-breakpoint offset
