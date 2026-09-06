@@ -38,6 +38,17 @@
     [data-r="trust"] > div { border-left: none !important; justify-content: flex-start !important; }
     [data-r="trust"] > div:last-child { grid-column: 1 / -1 !important; justify-content: center !important; max-width: 260px; margin: 0 auto; }
   }
+  @media (min-width: 901px) {
+    /* Above 900px the enquiry card's two columns sit side by side, so
+       its own right-hand padding (up to 48px) stacks with the embedded
+       Gravity Forms page's own .gform_wrapper padding (28px, set on
+       that separate WordPress page, not here) before reaching an
+       actual input field - visually cramping the form. Reducing only
+       padding-right recovers width for the iframe column specifically;
+       the left column's own padding (top/left/bottom, still the full
+       clamp(24px, 4vw, 48px) from the inline style) is untouched. */
+    #enquiry [data-r="split"] { padding-right: clamp(16px, 2vw, 24px) !important; }
+  }
   @media (max-width: 720px) {
     [data-r="pad"] { padding-top: 58px !important; padding-bottom: 58px !important; }
     [data-r="hdr"] { gap: 12px 20px !important; }
@@ -49,6 +60,11 @@
     header.hdr-compact a[href^="tel:"] svg { width: 18px !important; height: 18px !important; }
     header [data-cta] { flex-basis: 100% !important; text-align: center !important; font-size: 17px !important; padding: 14px 22px !important; }
     header.hdr-compact [data-cta] { font-size: 15px !important; padding: 11px 20px !important; }
+    /* Header wraps to two rows at this width (phone number + CTA button
+       both drop below the logo), measured up to 148px tall uncompacted -
+       #enquiry-form's scroll-margin-top is bumped to clear it (plus a
+       buffer, erring toward a little extra gap over any risk of clipping). */
+    #enquiry-form { scroll-margin-top: 170px !important; }
     [data-r="chain"] { grid-template-columns: 1fr !important; }
     [data-r="included"] { grid-template-columns: 1fr !important; }
     [data-r="cmp-head"] { display: none !important; }
@@ -69,18 +85,20 @@
        badge are also tightened slightly, since this column now
        carries more content (checklist, phone callout, compliance
        badges, badge) than when the wider mobile spacing was first set.
-       #enquiry-form's scroll-margin-top is bumped to clear the mobile
-       header (up to 148px uncompacted, plus a 16px buffer) - this only
-       matters for a native hash jump (direct link, back/forward); the
-       CTA click handler computes its own header-aware offset in JS. */
+       scroll-margin-top for #enquiry-form is set in the 720px block
+       above (this range is a subset of it) and again below for ≤380px,
+       where the header is measurably shorter. */
     #enquiry [data-r="split"] { padding: 16px 10px !important; }
     #enquiry [data-r="enq-divider"] { margin-top: 22px !important; padding-top: 18px !important; }
     #enquiry [data-r="enq-badge"] { margin-top: 16px !important; }
-    #enquiry-form { scroll-margin-top: 164px !important; }
   }
   @media (max-width: 380px) {
     header img { height: 40px !important; }
     header a[href^="tel:"] { font-size: 15px !important; }
+    /* Smaller logo/phone text at this width actually makes the wrapped
+       header a little shorter than the 390-720px range (measured up to
+       140px vs 148px) - its own, slightly smaller scroll-margin-top. */
+    #enquiry-form { scroll-margin-top: 160px !important; }
   }
   [data-reveal], [data-card] { opacity: 0; transform: translateY(18px); transition: opacity 0.65s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1); }
   [data-reveal].om-in, [data-card].om-in { opacity: 1; transform: translateY(0); }
@@ -525,7 +543,7 @@
             <img data-r="enq-badge" src="https://pearce-group.co.uk/wp-content/uploads/2026/09/pearce-150-years-badge.png" alt="Pearce Group - 150 years, 1869-2019" style="display: block; width: 100px; height: 100px; margin: 24px auto 0; background: transparent;">
           </div>
         </div>
-        <iframe id="enquiry-form" src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px; scroll-margin-top: 90px;"></iframe>
+        <iframe id="enquiry-form" src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px; scroll-margin-top: 150px;"></iframe>
       </div>
     </div>
   </section>
@@ -1015,16 +1033,15 @@
         e.preventDefault();
         press();
         setTimeout(function () {
-          // Read the header's real height at click time rather than a
-          // fixed offset - it's taller uncompacted vs compacted, and
-          // taller again on mobile (phone number + CTA wrap to a second
-          // row), so a single hardcoded number can't fit every case.
-          // The +16 buffer keeps the target's own top padding clear of
-          // the header rather than flush against it.
-          var headerEl = document.querySelector('header');
-          var headerOffset = headerEl ? headerEl.getBoundingClientRect().height : 84;
-          var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset - 16;
-          window.scrollTo({ top: top, behavior: 'smooth' });
+          // Native scrollIntoView, not a manual scrollTo - the header's
+          // own scroll listener (initCompactHeader) shrinks it partway
+          // through the scroll once scrollY > 70, so an offset read
+          // from the header's height at click time doesn't match its
+          // real height once the scroll settles. scrollIntoView has no
+          // such race: it relies on the target's scroll-margin-top
+          // (set per breakpoint below) and the browser positions it
+          // correctly against whatever the header's final state is.
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           btn.classList.remove('om-pressed');
         }, HOLD);
       });
