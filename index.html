@@ -1041,6 +1041,13 @@
         var target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
+        // Elementor's own built-in anchor-scroll (jQuery, delegated,
+        // margin-ignorant) also listens for clicks on href="#..." links
+        // and finishes ~800-900ms after this handler, overriding the
+        // correct landing with its own. Stopping the event here (before
+        // it can bubble to that delegated listener) keeps it from ever
+        // firing for this click.
+        e.stopImmediatePropagation();
         press();
         setTimeout(function () {
           // scroll-margin-top is read here (via getComputedStyle) and
