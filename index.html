@@ -62,8 +62,9 @@
     header.hdr-compact [data-cta] { font-size: 15px !important; padding: 11px 20px !important; }
     /* Header wraps to two rows at this width (phone number + CTA button
        both drop below the logo), measured up to 148px tall uncompacted -
-       #enquiry-form's scroll-margin-top is bumped to clear it (plus a
-       buffer, erring toward a little extra gap over any risk of clipping). */
+       #enquiry-form's (the div wrapping the iframe) scroll-margin-top is
+       bumped to clear it (plus a buffer, erring toward a little extra
+       gap over any risk of clipping). */
     #enquiry-form { scroll-margin-top: 170px !important; }
     [data-r="chain"] { grid-template-columns: 1fr !important; }
     [data-r="included"] { grid-template-columns: 1fr !important; }
@@ -97,7 +98,8 @@
     header a[href^="tel:"] { font-size: 15px !important; }
     /* Smaller logo/phone text at this width actually makes the wrapped
        header a little shorter than the 390-720px range (measured up to
-       140px vs 148px) - its own, slightly smaller scroll-margin-top. */
+       140px vs 148px) - #enquiry-form gets its own, slightly smaller
+       scroll-margin-top here. */
     #enquiry-form { scroll-margin-top: 160px !important; }
   }
   [data-reveal], [data-card] { opacity: 0; transform: translateY(18px); transition: opacity 0.65s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1); }
@@ -543,7 +545,15 @@
             <img data-r="enq-badge" src="https://pearce-group.co.uk/wp-content/uploads/2026/09/pearce-150-years-badge.png" alt="Pearce Group - 150 years, 1869-2019" style="display: block; width: 100px; height: 100px; margin: 24px auto 0; background: transparent;">
           </div>
         </div>
-        <iframe id="enquiry-form" src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px; scroll-margin-top: 150px;"></iframe>
+        <!-- scroll-margin-top lives on this wrapping div, not the iframe -
+             scrollIntoView doesn't reliably respect scroll-margin-top on
+             replaced elements like <iframe> across browsers, so the CTA
+             scroll-anchor id and its scroll-margin-top rules target this
+             plain div instead. The iframe itself keeps data-enquiry-iframe
+             as its own selector for the auto-resize script below. -->
+        <div id="enquiry-form" style="scroll-margin-top: 150px;">
+          <iframe src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px;"></iframe>
+        </div>
       </div>
     </div>
   </section>
