@@ -32,6 +32,10 @@
   header.hdr-compact [data-cta] { padding: 12px 24px !important; font-size: 16px !important; }
   @media (max-width: 900px) {
     [data-r="split"] { grid-template-columns: 1fr !important; gap: 36px !important; }
+    /* Mobile-only intro shown directly above the enquiry iframe - see the
+       HTML comment by #enquiry-form-intro and the CTA click handler JS,
+       which targets this id instead of #enquiry-form below 900px. */
+    #enquiry-form-intro { display: block !important; }
     [data-r="chain"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-r="included"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-r="trust"] { grid-template-columns: repeat(2, 1fr) !important; }
@@ -64,8 +68,9 @@
        both drop below the logo), measured up to 148px tall uncompacted -
        #enquiry-form's (the div wrapping the iframe) scroll-margin-top is
        bumped to clear it (plus a buffer, erring toward a little extra
-       gap over any risk of clipping). */
-    #enquiry-form, #enquiry { scroll-margin-top: 170px !important; }
+       gap over any risk of clipping). #enquiry-form-intro (the actual
+       mobile CTA scroll target below 900px) gets the same value. */
+    #enquiry-form, #enquiry, #enquiry-form-intro { scroll-margin-top: 170px !important; }
     [data-r="chain"] { grid-template-columns: 1fr !important; }
     [data-r="included"] { grid-template-columns: 1fr !important; }
     [data-r="cmp-head"] { display: none !important; }
@@ -89,11 +94,11 @@
        trust-block dividers and the 150-years badge are also tightened
        slightly, since this column now carries more content (checklist,
        phone callout, compliance badges, badge) than when the wider
-       mobile spacing was first set. scroll-margin-top for #enquiry-form
-       and #enquiry (used as the mobile CTA scroll target instead, see
-       the click handler JS) is set in the 720px block above (this
-       range is a subset of it) and again below for ≤380px, where the
-       header is measurably shorter. */
+       mobile spacing was first set. scroll-margin-top for #enquiry-form,
+       #enquiry and #enquiry-form-intro (the last is the actual mobile CTA
+       scroll target, see the click handler JS) is set in the 720px block
+       above (this range is a subset of it) and again below for ≤380px,
+       where the header is measurably shorter. */
     #enquiry [data-r="split"] { padding: 12px 8px !important; }
     #enquiry [data-r="enq-divider"] { margin-top: 22px !important; padding-top: 18px !important; }
     #enquiry [data-r="enq-badge"] { margin-top: 16px !important; }
@@ -103,9 +108,9 @@
     header a[href^="tel:"] { font-size: 15px !important; }
     /* Smaller logo/phone text at this width actually makes the wrapped
        header a little shorter than the 390-720px range (measured up to
-       140px vs 148px) - #enquiry-form gets its own, slightly smaller
-       scroll-margin-top here. */
-    #enquiry-form, #enquiry { scroll-margin-top: 160px !important; }
+       140px vs 148px) - #enquiry-form and #enquiry-form-intro get their
+       own, slightly smaller scroll-margin-top here. */
+    #enquiry-form, #enquiry, #enquiry-form-intro { scroll-margin-top: 160px !important; }
   }
   [data-reveal], [data-card] { opacity: 0; transform: translateY(18px); transition: opacity 0.65s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1); }
   [data-reveal].om-in, [data-card].om-in { opacity: 1; transform: translateY(0); }
@@ -550,14 +555,28 @@
             <img data-r="enq-badge" src="https://pearce-group.co.uk/wp-content/uploads/2026/09/pearce-150-years-badge.png" alt="Pearce Group - 150 years, 1869-2019" style="display: block; width: 100px; height: 100px; margin: 24px auto 0; background: transparent;">
           </div>
         </div>
-        <!-- scroll-margin-top lives on this wrapping div, not the iframe,
-             so the CTA scroll-anchor id (and the per-breakpoint offset
-             read from this value in JS below) targets a plain element
-             rather than a replaced one. The iframe itself keeps
-             data-enquiry-iframe as its own selector for the auto-resize
-             script further down. -->
-        <div id="enquiry-form" style="scroll-margin-top: 150px;">
-          <iframe src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px;"></iframe>
+        <div>
+          <!-- Mobile-only short intro, shown directly above the form panel
+               (not the full left column). Below 900px the CTA click handler
+               targets this instead of #enquiry-form, so a mobile visitor
+               lands on a brief heading with the top of the form already
+               visible just below it, rather than at the top of the whole
+               lengthy left column (#enquiry) or straight into a bare form
+               with no context (#enquiry-form). Hidden above 900px, where
+               the full left column already sits alongside the form. -->
+          <div id="enquiry-form-intro" data-r="enq-form-intro" style="display: none; scroll-margin-top: 150px;">
+            <p style="font-family: Montserrat, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: #4E9A2F; margin: 0;">Enquiry</p>
+            <h3 style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 18px; line-height: 1.3; letter-spacing: -0.3px; color: #0B2E60; margin: 8px 0 16px;">Get a fixed-rate quote — tell us the volume and sites, no minimum contract.</h3>
+          </div>
+          <!-- scroll-margin-top lives on this wrapping div, not the iframe,
+               so the CTA scroll-anchor id (and the per-breakpoint offset
+               read from this value in JS below) targets a plain element
+               rather than a replaced one. The iframe itself keeps
+               data-enquiry-iframe as its own selector for the auto-resize
+               script further down. -->
+          <div id="enquiry-form" style="scroll-margin-top: 150px;">
+            <iframe src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px;"></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -1046,10 +1065,16 @@
         // Below 900px the two enquiry columns stack (the form panel
         // sits below the heading/intro/checklist rather than beside
         // it), so jumping straight to #enquiry-form skips a mobile
-        // visitor past all of that context straight to a bare form.
-        // Above 900px both columns are already visible side by side,
-        // so going straight to the form panel is still correct there.
-        var actualHref = (href === '#enquiry-form' && window.innerWidth < 900) ? '#enquiry' : href;
+        // visitor past all of that context straight to a bare form -
+        // but jumping all the way to #enquiry (the whole section) lands
+        // above the full left column and scrolls the form itself out of
+        // view below the fold. #enquiry-form-intro is a short mobile-only
+        // heading shown directly above the iframe (see its markup and the
+        // #enquiry-form-intro CSS below), giving a landing spot with both
+        // a line of context and the top of the form visible together.
+        // Above 900px both columns are already visible side by side, so
+        // going straight to the form panel is still correct there.
+        var actualHref = (href === '#enquiry-form' && window.innerWidth < 900) ? '#enquiry-form-intro' : href;
         var target = document.querySelector(actualHref);
         if (!target) return;
         e.preventDefault();
