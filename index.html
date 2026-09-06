@@ -545,12 +545,12 @@
             <img data-r="enq-badge" src="https://pearce-group.co.uk/wp-content/uploads/2026/09/pearce-150-years-badge.png" alt="Pearce Group - 150 years, 1869-2019" style="display: block; width: 100px; height: 100px; margin: 24px auto 0; background: transparent;">
           </div>
         </div>
-        <!-- scroll-margin-top lives on this wrapping div, not the iframe -
-             scrollIntoView doesn't reliably respect scroll-margin-top on
-             replaced elements like <iframe> across browsers, so the CTA
-             scroll-anchor id and its scroll-margin-top rules target this
-             plain div instead. The iframe itself keeps data-enquiry-iframe
-             as its own selector for the auto-resize script below. -->
+        <!-- scroll-margin-top lives on this wrapping div, not the iframe,
+             so the CTA scroll-anchor id (and the per-breakpoint offset
+             read from this value in JS below) targets a plain element
+             rather than a replaced one. The iframe itself keeps
+             data-enquiry-iframe as its own selector for the auto-resize
+             script further down. -->
         <div id="enquiry-form" style="scroll-margin-top: 150px;">
           <iframe src="https://pearce-group.co.uk/enquiry-form/" title="Enquiry form" data-reveal="1" data-enquiry-iframe="1" style="display: block; width: 100%; height: 600px; border: none; background: transparent; border-radius: 14px;"></iframe>
         </div>
@@ -1043,15 +1043,18 @@
         e.preventDefault();
         press();
         setTimeout(function () {
-          // Native scrollIntoView, not a manual scrollTo - the header's
-          // own scroll listener (initCompactHeader) shrinks it partway
-          // through the scroll once scrollY > 70, so an offset read
-          // from the header's height at click time doesn't match its
-          // real height once the scroll settles. scrollIntoView has no
-          // such race: it relies on the target's scroll-margin-top
-          // (set per breakpoint below) and the browser positions it
-          // correctly against whatever the header's final state is.
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Not scrollIntoView: confirmed by direct testing that Chromium
+          // respects scroll-margin-top with behavior:'instant' but ignores
+          // it with behavior:'smooth' on the same element/CSS - a real
+          // browser bug, not a caching or specificity issue. window.scrollTo
+          // doesn't have this problem, so scroll-margin-top is read here
+          // (via getComputedStyle) and applied manually as the offset,
+          // keeping the CSS values as the single source of truth per
+          // breakpoint while sidestepping smooth-mode's broken margin
+          // handling entirely.
+          var scrollMarginTop = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - scrollMarginTop;
+          window.scrollTo({ top: top, behavior: 'smooth' });
           btn.classList.remove('om-pressed');
         }, HOLD);
       });
