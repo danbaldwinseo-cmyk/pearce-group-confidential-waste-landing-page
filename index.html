@@ -60,15 +60,23 @@
   @media (max-width: 480px) {
     /* Enquiry card: the form panel is a same-origin iframe embedding a
        live, non-responsive WordPress form. Its fixed-width fields can
-       clip at the very narrowest phone widths, so a few extra px of
-       iframe width are recovered here by tightening the card's own
-       padding. The trust-block dividers and the 150-years badge are
-       also tightened slightly, since this column now carries more
-       content (checklist, phone callout, compliance badges, badge)
-       than when the wider mobile spacing was first set. */
-    #enquiry [data-r="split"] { padding: 16px !important; }
+       clip at the very narrowest phone widths, so extra iframe width
+       is recovered here by tightening the card's own horizontal
+       padding specifically (vertical padding is left alone - width is
+       the scarce dimension on a phone, not height). The outer section
+       padding (24px, set elsewhere) still keeps the card itself off
+       the screen edges. The trust-block dividers and the 150-years
+       badge are also tightened slightly, since this column now
+       carries more content (checklist, phone callout, compliance
+       badges, badge) than when the wider mobile spacing was first set.
+       #enquiry-form's scroll-margin-top is bumped to clear the mobile
+       header (up to 148px uncompacted, plus a 16px buffer) - this only
+       matters for a native hash jump (direct link, back/forward); the
+       CTA click handler computes its own header-aware offset in JS. */
+    #enquiry [data-r="split"] { padding: 16px 10px !important; }
     #enquiry [data-r="enq-divider"] { margin-top: 22px !important; padding-top: 18px !important; }
     #enquiry [data-r="enq-badge"] { margin-top: 16px !important; }
+    #enquiry-form { scroll-margin-top: 164px !important; }
   }
   @media (max-width: 380px) {
     header img { height: 40px !important; }
@@ -1007,7 +1015,15 @@
         e.preventDefault();
         press();
         setTimeout(function () {
-          var top = target.getBoundingClientRect().top + window.pageYOffset - 84;
+          // Read the header's real height at click time rather than a
+          // fixed offset - it's taller uncompacted vs compacted, and
+          // taller again on mobile (phone number + CTA wrap to a second
+          // row), so a single hardcoded number can't fit every case.
+          // The +16 buffer keeps the target's own top padding clear of
+          // the header rather than flush against it.
+          var headerEl = document.querySelector('header');
+          var headerOffset = headerEl ? headerEl.getBoundingClientRect().height : 84;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset - 16;
           window.scrollTo({ top: top, behavior: 'smooth' });
           btn.classList.remove('om-pressed');
         }, HOLD);
