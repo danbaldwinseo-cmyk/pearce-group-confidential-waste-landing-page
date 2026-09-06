@@ -1043,19 +1043,47 @@
         e.preventDefault();
         press();
         setTimeout(function () {
-          // Not scrollIntoView: confirmed by direct testing that Chromium
-          // respects scroll-margin-top with behavior:'instant' but ignores
-          // it with behavior:'smooth' on the same element/CSS - a real
-          // browser bug, not a caching or specificity issue. window.scrollTo
-          // doesn't have this problem, so scroll-margin-top is read here
-          // (via getComputedStyle) and applied manually as the offset,
-          // keeping the CSS values as the single source of truth per
-          // breakpoint while sidestepping smooth-mode's broken margin
-          // handling entirely.
+          // scroll-margin-top is read here (via getComputedStyle) and
+          // applied manually as the offset, keeping the CSS values as
+          // the single source of truth per breakpoint. window.scrollTo
+          // is called with the mathematically correct destination every
+          // time (confirmed via direct instrumentation) - but on the
+          // live site the page has been observed settling ~150px past
+          // that requested destination once the smooth animation ends,
+          // for a reason that resisted diagnosis at the browser level.
+          // Rather than trust the smooth-scroll's own landing spot, the
+          // actual header-to-target gap is re-measured once movement
+          // stops and snapped back to the intended gap if it's off by
+          // more than a few px - self-correcting regardless of cause.
+          var headerEl = document.querySelector('header');
           var scrollMarginTop = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
           var top = target.getBoundingClientRect().top + window.pageYOffset - scrollMarginTop;
           window.scrollTo({ top: top, behavior: 'smooth' });
           btn.classList.remove('om-pressed');
+
+          var settleTimer = null;
+          var corrected = false;
+          var fallback;
+          var onScroll = function () {
+            clearTimeout(settleTimer);
+            settleTimer = setTimeout(correct, 120);
+          };
+          function correct() {
+            if (corrected) return;
+            corrected = true;
+            window.removeEventListener('scroll', onScroll);
+            clearTimeout(fallback);
+            if (!headerEl) return;
+            var headerBottom = headerEl.getBoundingClientRect().bottom;
+            var targetTop = target.getBoundingClientRect().top;
+            var actualGap = targetTop - headerBottom;
+            var intendedGap = scrollMarginTop - headerEl.getBoundingClientRect().height;
+            if (Math.abs(actualGap - intendedGap) > 3) {
+              window.scrollTo({ top: window.scrollY + (actualGap - intendedGap), behavior: 'instant' });
+            }
+          }
+          window.addEventListener('scroll', onScroll, { passive: true });
+          fallback = setTimeout(correct, 600);
         }, HOLD);
       });
     });
